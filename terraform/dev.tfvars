@@ -48,7 +48,7 @@ security_group_info = {
     }
   ]
   outbound_rules   = []
-  allow_all_egress = false
+  allow_all_egress = true
 }
 
 web_instance_info = {
