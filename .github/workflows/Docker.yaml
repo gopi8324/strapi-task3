@@ -1,1 +1,25 @@
+name: terraform
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  Docker:
+    name: "Dockerfile"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Dockerfile
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: docker image build
+        run: docker image -t strapi:1.0 .
+
+      - name: docker container run
+        run: docker container run --name strapi -d -P strapi:1.0
