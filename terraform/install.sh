@@ -1,7 +1,6 @@
 #!/bin/bash
 sudo apt update
-sudo apt install nginx unzip -y
-cd /tmp && wget https://www.free-css.com/assets/files/free-css-templates/download/page295/kider.zip
-unzip /tmp/kider.zip
-sudo mv /tmp/preschool-website-template /var/www/html/preschool
 sudo apt install npm -y
+curl -fsSL https://get.docker.com -o install-docker.sh
+sh install-docker.sh --dry-run
+sudo sh install-docker.sh
