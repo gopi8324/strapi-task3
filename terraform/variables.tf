@@ -14,6 +14,15 @@ variable "public_subnets" {
   ))
   description = "the public subnets"
 }
+variable "private_subnet" {
+  type = list(object({
+    name = string,
+    cidr = string,
+    az   = string
+    }
+  ))
+  description = "private_subnet"
+}
 variable "security_group" {
   type = list(object({
     name        = string,
