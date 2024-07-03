@@ -5,7 +5,7 @@
   vpc_security_group_ids      = [aws_security_group.all.id]
   subnet_id                   = aws_subnet.web[0].id
   key_name                    = var.web_instance_info.key_name
-  subnet_id = aws_subnet.public[0].id
+
 
 
   tags = {
@@ -26,4 +26,5 @@
     aws_subnet.public,
 
   ]
+}
    
