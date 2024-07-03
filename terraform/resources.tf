@@ -21,9 +21,9 @@
 
   depends_on = [
 
-    aws_subnet.private,
+    aws_subnet.web,
 
-    aws_subnet.public,
+    aws_subnet.web2,
 
   ]
 }
