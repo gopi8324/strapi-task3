@@ -27,7 +27,7 @@ jobs:
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.1.7
+          terraform_version: 1.0.11
           terraform_wrapper: false
 
       - name: Terraform init
@@ -39,5 +39,8 @@ jobs:
       - name: Terraform Formate
         run: terraform fmt
 
+      - name: Terraform plan
+        run: terraform plan -no-color
+        
       - name: Terraform apply
-        run: terraform apply -auto-approve
+        run: terraform apply -var-file="dev.tfvars"  -auto-approve
