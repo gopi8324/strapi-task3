@@ -14,6 +14,12 @@ public_subnets = [{
   cidr = "192.168.1.0/24"
   }
 ]
+private_subnet = [{
+  name = "db1"
+  cidr = "192.168.2.0/24"
+  az   = "ap-south-1a"
+}
+]
 security_group = [ {
   name = "slim"
   description = "for public ip"
@@ -36,25 +42,13 @@ security_group_info = {
     },
     {
       cidr        = "0.0.0.0/0"
-      port        = 5432
-      protocol    = "tcp"
-      description = "open for in postgers"
-    },
-    {
-      cidr        = "0.0.0.0/0"
       port        = 1337
       protocol    = "tcp"
       description = "open for strapi"
-    },
-    {
-      cidr        = "0.0.0.0/0"
-      port        = 443
-      protocol    = "tcp"
-      description = "open for https" 
     }
   ]
   outbound_rules   = []
-  allow_all_egress = true
+  allow_all_egress = false
 }
 
 web_instance_info = {
