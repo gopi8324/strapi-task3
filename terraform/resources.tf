@@ -1,13 +1,10 @@
-resource "aws_instance" "web" {
-
-  ami = var.web_instance_info.ami
-
-  instance_type = var.web_instance_info.size
-
+ resource "aws_instance" "slim" {
+  ami                         = var.web_instance_info.ami
+  instance_type               = "t2.micro"
   associate_public_ip_address = true
-
-  key_name = var.web_instance_info.key_name
-
+  vpc_security_group_ids      = [aws_security_group.all.id]
+  subnet_id                   = aws_subnet.web[0].id
+  key_name                    = var.web_instance_info.key_name
   subnet_id = aws_subnet.public[0].id
 
 
@@ -30,8 +27,3 @@ resource "aws_instance" "web" {
 
   ]
    
-
-
-
-
-}
