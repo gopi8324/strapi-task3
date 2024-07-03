@@ -5,6 +5,7 @@ resource "aws_vpc" "network" {
     createdby = var.network_info.createdby
   }
 }
+
 resource "aws_subnet" "web" {
   count             = length(var.public_subnets)
   cidr_block        = var.public_subnets[count.index].cidr
@@ -14,12 +15,25 @@ resource "aws_subnet" "web" {
     Name = var.public_subnets[count.index].name
   }
 }
+resource "aws_subnet" "web2" {
+  count             = length(var.private_subnet)
+  cidr_block        = var.private_subnet[count.index].cidr
+  vpc_id            = aws_vpc.network.id
+  availability_zone = var.private_subnet[count.index].az
+  tags = {
+    Name = var.private_subnet[count.index].name
+  }
+}
 resource "aws_security_group" "all" {
   vpc_id = aws_vpc.network.id
+
 }
+
 resource "aws_vpc_security_group_ingress_rule" "all" {
   security_group_id = aws_security_group.all.id
+
   count = length(var.security_group_info.inbound_rules)
+
   cidr_ipv4   = var.security_group_info.inbound_rules[count.index].cidr
   from_port   = var.security_group_info.inbound_rules[count.index].port
   ip_protocol = var.security_group_info.inbound_rules[count.index].protocol
@@ -28,14 +42,17 @@ resource "aws_vpc_security_group_ingress_rule" "all" {
 }
 resource "aws_vpc_security_group_ingress_rule" "allow" {
   security_group_id = aws_security_group.all.id
+
   count = length(var.security_group_info.outbound_rules)
+
   cidr_ipv4   = var.security_group_info.outbound_rules[count.index].cidr
-  from_port   = var.security_group_info.outbound_rules[count.index].from_port
+  from_port = var.security_group_info.outbound_rules[count.index].from_port
   ip_protocol = var.security_group_info.outbound_rules[count.index].protocol
   to_port     = var.security_group_info.outbound_rules[count.index].to_port
 }
 resource "aws_internet_gateway" "slim" {
   vpc_id = aws_vpc.network.id
+
   tags = {
     Name = "main"
   }
